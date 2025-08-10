@@ -20,9 +20,9 @@ import {ApiService} from '../../services/api.service';
   ]
 })
 export class InitProfileComponent {
-  @ViewChild('appImageSplit') appImageSplit: ImageSplitComponent;
-  @ViewChild('loadingBox') loadingBox: LoadingBoxComponent;
-  @ViewChild('chooseBox') chooseBox: ChooseBoxComponent;
+  @ViewChild('appImageSplit') appImageSplit!: ImageSplitComponent;
+  @ViewChild('loadingBox') loadingBox!: LoadingBoxComponent;
+  @ViewChild('chooseBox') chooseBox!: ChooseBoxComponent;
 
   // ui
   magicScrollTop: number;
@@ -54,7 +54,8 @@ export class InitProfileComponent {
     ]);
   }
 
-  chooseAvatarImage(files: FileList) {
+  chooseAvatarImage($event: any) {
+    let files = $event.target.files
     if (files.length > 0) {
       if (files[0].size > ImageSplitService.MAX_IMAGE_SIZE) {
         // this.avatarUploader.value = null;
@@ -84,7 +85,7 @@ export class InitProfileComponent {
     }
   }
 
-  onScroll($event) {
+  onScroll($event: any) {
     this.showMagic = $event.target.scrollTop >= this.magicScrollTop;
   }
 

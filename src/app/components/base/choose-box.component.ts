@@ -12,17 +12,17 @@ import {ChooseItem} from '../../models/choose-item';
   ]
 })
 export class ChooseBoxComponent {
-  @Input() boxTitle: string;
-  @Input() chooseList: Array<ChooseItem>;
-  @Input() showSearchBox: boolean;
-  @Input() maxChosenNum: number;
-  @Input() minChosenNum: number;
-  @Input() fastMode: boolean;
-  @Input() keyword: string;
+  @Input() boxTitle!: string;
+  @Input() chooseList!: Array<ChooseItem>;
+  @Input() showSearchBox!: boolean;
+  @Input() maxChosenNum!: number;
+  @Input() minChosenNum!: number;
+  @Input() fastMode!: boolean;
+  @Input() keyword!: string;
   @Output() cancel = new EventEmitter();
   @Output() submit = new EventEmitter<Array<ChooseItem>>();
 
-  showChooseBox: boolean;
+  showChooseBox!: boolean;
 
   constructor(
     private toastService: ToastService,
@@ -79,7 +79,7 @@ export class ChooseBoxComponent {
     }
 
     if (this.maxChosenNum === 1) {
-      let chosenItem: ChooseItem;
+      let chosenItem: ChooseItem | null = null;
       for (const chooseItem of this.chooseList) {
         if (id === chooseItem.id) {
           chooseItem.selected = !chooseItem.selected;

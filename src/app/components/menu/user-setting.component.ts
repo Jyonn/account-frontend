@@ -33,9 +33,9 @@ export class UserSettingComponent implements OnInit {
   public static MODE_VERIFY_TO_VERIFY = 1;
   public static MODE_VERIFY_TO_SUBMIT = 2;
 
-  @ViewChild('appImageSplit') appImageSplit: ImageSplitComponent;
-  @ViewChild('loadingBox') loadingBox: LoadingBoxComponent;
-  @ViewChild('chooseBox') chooseBox: ChooseBoxComponent;
+  @ViewChild('appImageSplit') appImageSplit!: ImageSplitComponent;
+  @ViewChild('loadingBox') loadingBox!: LoadingBoxComponent;
+  @ViewChild('chooseBox') chooseBox!: ChooseBoxComponent;
 
   // avatarUploader: HTMLInputElement;
   // cardFrontUploader: HTMLInputElement;
@@ -51,28 +51,28 @@ export class UserSettingComponent implements OnInit {
   userQitianRadio: Radio;
 
   // account info section
-  editAccountInfo: boolean;
+  editAccountInfo!: boolean;
   accountInfoRadioList: RadioList;
   accountPhoneRadio: Radio;
   accountVerifyRadio: Radio;
   accountDevRadio: Radio;
 
   // verify
-  verifyMode: number;
+  verifyMode!: number;
   verifyInfoList: Array<any>;
   cardFront: Link;
   cardBack: Link;
-  idCard: IDCard;
-  idCardOld: IDCard;
-  verifyButtonText: string;
-  interval: number;
+  idCard!: IDCard;
+  idCardOld!: IDCard;
+  verifyButtonText: string | null;
+  interval: ReturnType<typeof setInterval> | null;
   sexChooseList: Array<ChooseItem>;
-  uploadFrontPercentage: number;
+  uploadFrontPercentage!: number;
   uploadFront: boolean;
-  uploadFrontText: string;
-  uploadBackPercentage: number;
+  uploadFrontText!: string;
+  uploadBackPercentage!: number;
   uploadBack: boolean;
-  uploadBackText: string;
+  uploadBackText!: string;
 
   static editText(edit: boolean) {
     return edit ? '完成' : '编辑';
@@ -157,6 +157,7 @@ export class UserSettingComponent implements OnInit {
     } else if (this.userService.user.isManualVerifying) {
       return '正在人工验证';
     }
+    return null
   }
 
   /**
@@ -174,7 +175,8 @@ export class UserSettingComponent implements OnInit {
     }
   }
 
-  chooseAvatarImage(files: FileList) {
+  chooseAvatarImage($event: any) {
+    let files = $event.target.files
     if (files.length > 0) {
       if (files[0].size > ImageSplitService.MAX_IMAGE_SIZE) {
         // this.avatarUploader.value = null;
@@ -234,14 +236,14 @@ export class UserSettingComponent implements OnInit {
   /**
    * 实名认证模块
    */
-  setVerifyMode(mode) {
+  setVerifyMode(mode: any) {
     this.verifyMode = mode;
     switch (this.verifyMode) {
       case UserSettingComponent.MODE_VERIFY_TO_VERIFY:
         this.verifyButtonText = '开始认证';
         break;
       case UserSettingComponent.MODE_VERIFY_TO_SUBMIT:
-        clearInterval(this.interval);
+        clearInterval(this.interval!);
         this.interval = setInterval(this.intervalHandler.bind(this), 1000);
         this.intervalHandler();
         break;
@@ -251,7 +253,7 @@ export class UserSettingComponent implements OnInit {
   intervalHandler() {
     const remainTime = this.idCard.expireTime - ClockService.cTimestamp;
     if (remainTime <= 0) {
-      clearInterval(this.interval);
+      clearInterval(this.interval!);
       this.setVerifyMode(UserSettingComponent.MODE_VERIFY_TO_VERIFY);
     } else {
       this.verifyButtonText = `提交（${remainTime.toFixed(0)}s）`;
@@ -266,7 +268,8 @@ export class UserSettingComponent implements OnInit {
     }
   }
 
-  uploadIDCard(files: FileList, back: number) {
+  uploadIDCard($event: any, back: number) {
+    let files = $event.target.files
     if (files.length <= 0) {
       return;
     }
@@ -275,7 +278,7 @@ export class UserSettingComponent implements OnInit {
       return;
     }
 
-    this.oneWorker.do('upload-card', (callback) => {
+    this.oneWorker.do('upload-card', (callback: any) => {
       const file = files[0];
       if (back) {
         this.uploadBack = true;
@@ -292,7 +295,7 @@ export class UserSettingComponent implements OnInit {
           this.api.uploadFileV2(
             {key: resp.key, token: resp.upload_token, file: file},
             new HttpCallback({
-              responseCallback: (qnResp) => {
+              responseCallback: (qnResp: any) => {
                 const preloadImage = new PreloadImage(qnResp);
                 preloadImage.load(() => {
                   if (back) {
@@ -306,7 +309,7 @@ export class UserSettingComponent implements OnInit {
                 this.uploadFront = false;
                 callback();
               },
-              uploadProgress: (event) => {
+              uploadProgress: (event: any) => {
                 const percentage = Math.round(event.loaded / event.total * 100);
                 if (back) {
                   this.uploadBackPercentage = percentage;
@@ -342,7 +345,7 @@ export class UserSettingComponent implements OnInit {
   }
 
   verifyButtonClick() {
-    this.oneWorker.do('idcard-verify', (callback) => {
+    this.oneWorker.do('idcard-verify', (callback: any) => {
       if (this.verifyMode === UserSettingComponent.MODE_VERIFY_TO_VERIFY) {
         this.api.autoVerify()
           .then(resp => {
@@ -355,7 +358,7 @@ export class UserSettingComponent implements OnInit {
           })
           .catch(callback);
       } else if (this.verifyMode === UserSettingComponent.MODE_VERIFY_TO_SUBMIT) {
-        clearInterval(this.interval);
+        clearInterval(this.interval!);
         this.verifyButtonText = '正在提交';
         let promise: Promise<any>;
         if (this.idCard.male === this.idCardOld.male &&

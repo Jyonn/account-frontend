@@ -30,18 +30,18 @@ import {JumpService} from '../../services/jump.service';
   ]
 })
 export class DisplayComponent implements AfterViewChecked {
-  @Input() showPage: boolean;
-  @Input() childMode: boolean;
+  @Input() showPage!: boolean;
+  @Input() childMode!: boolean;
 
   @Output() backing = new EventEmitter();
 
-  @ViewChild('appScoreBox') appScoreBox: ScoreBoxComponent;
-  @ViewChild('markdownBox') markdownBoxRef: ElementRef;
+  @ViewChild('appScoreBox') appScoreBox!: ScoreBoxComponent;
+  @ViewChild('markdownBox') markdownBoxRef!: ElementRef;
 
   app: App;
   foldInfo: boolean;
 
-  markdownBox: HTMLDivElement;
+  markdownBox!: HTMLDivElement;
   showFoldButton: boolean;
 
   appInfoRadioList: RadioList;
@@ -94,7 +94,7 @@ export class DisplayComponent implements AfterViewChecked {
     return this.foldInfo ? '展开' : '收起';
   }
 
-  onScroll($event) {
+  onScroll($event: any) {
     this.showMagic = $event.target.scrollTop >= this.magicScrollTop;
   }
 
@@ -102,7 +102,7 @@ export class DisplayComponent implements AfterViewChecked {
     if (!this.userService.isLogin) {
       this.jump.loginPage();
     } else {
-      this.oneWorker.do('oauth-app', (callback) => {
+      this.oneWorker.do('oauth-app', (callback: any) => {
         this.api.oauthApp({app_id: this.app.app_id})
           .then(resp => {
             callback();
@@ -119,7 +119,7 @@ export class DisplayComponent implements AfterViewChecked {
     if (!this.userService.isLogin) {
       this.jump.loginPage();
     } else {
-      this.oneWorker.do('oauth-test-app', (callback) => {
+      this.oneWorker.do('oauth-test-app', (callback: any) => {
         this.api.oauthApp({app_id: this.app.app_id})
           .then(resp => {
             callback();
@@ -151,7 +151,8 @@ export class DisplayComponent implements AfterViewChecked {
         this.backing.emit();
       }, 500);
     } else {
-      this.history.go(this.jump.homePage.bind(this.jump));
+      // this.history.go(this.jump.homePage.bind(this.jump));
+      this.jump.homePage();
     }
   }
 }

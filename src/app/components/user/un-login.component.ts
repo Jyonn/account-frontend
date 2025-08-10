@@ -34,30 +34,30 @@ export class UnLoginComponent implements OnInit {
   public static MODE_REGISTER_CODE = 6;
   public static MODE_FIND_PWD_CODE = 7;
 
-  public mode: number;
-  public pageTextList: Array<any>;
+  public mode!: number;
+  public pageTextList!: Array<any>;
   public subTitleTemplate;
 
   // loading-box component
-  @ViewChild('loadingBox') loadingBox: LoadingBoxComponent;
+  @ViewChild('loadingBox') loadingBox!: LoadingBoxComponent;
 
   // captcha-box component
-  @ViewChild('captchaBox') captchaBox: CaptchaBoxComponent;
+  @ViewChild('captchaBox') captchaBox!: CaptchaBoxComponent;
 
   // region choose-box component
-  @ViewChild('chooseBox') chooseBox: ChooseBoxComponent;
+  @ViewChild('chooseBox') chooseBox!: ChooseBoxComponent;
   public currentRegionCode: string;
-  public chooseList: Array<ChooseItem>;
+  public chooseList!: Array<ChooseItem>;
 
   // phone input
-  @ViewChild('phoneInput') phoneInput: ElementRef;
+  @ViewChild('phoneInput') phoneInput!: ElementRef;
 
   // input value
-  public phoneNumber: string;
-  public qtID: string;
-  public password: string;
-  public verifiedCode: string;
-  public lastVerifiedCode: string;
+  public phoneNumber: string | null = null;
+  public qtID: string | null = null;
+  public password: string | null = null;
+  public verifiedCode: string | null;
+  public lastVerifiedCode: string | null;
 
   // password eye-open or eye-close
   public showPassword: boolean;
@@ -205,7 +205,7 @@ export class UnLoginComponent implements OnInit {
       UnLoginComponent.MODE_FIND_PWD_CODE,
     ].includes(this.mode);
   }
-  setMode(mode) {
+  setMode(mode: any) {
     this.mode = mode;
     if (this.isCodeInputMode) {
       this.pageTextList[mode].subTitle = this.subTitleTemplate(this.phoneNumber);
@@ -241,7 +241,7 @@ export class UnLoginComponent implements OnInit {
   get showIconBoxLeft() {
     return this.isCodeInputMode;
   }
-  paramValid(param, modeList, text) {
+  paramValid(param: any, modeList: any, text: any) {
     for (const mode of modeList) {
       if (this.mode === mode) {
         if (!param || param.length === 0) {
@@ -318,7 +318,7 @@ export class UnLoginComponent implements OnInit {
       if (!this.checkInputValid()) {
         return;
       }
-      this.oneWorker.do('get-login-token-using-code', (callback) => {
+      this.oneWorker.do('get-login-token-using-code', (callback: any) => {
         this.lastVerifiedCode = this.verifiedCode;
         // this.loadingBox.show('正在验证…');
         this.api.getLoginTokenUsingCode({

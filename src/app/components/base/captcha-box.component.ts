@@ -16,10 +16,10 @@ export class CaptchaBoxComponent implements OnInit {
   @Output() submit = new EventEmitter<string>();
 
   // ReCaptcha component
-  @ViewChild('gReCaptcha') gReCaptcha: ElementRef;
+  @ViewChild('gReCaptcha') gReCaptcha!: ElementRef;
 
-  showCaptchaBox: boolean;
-  fadeInCaptchaBox: boolean;
+  showCaptchaBox!: boolean;
+  fadeInCaptchaBox!: boolean;
   rendered: boolean;
 
   constructor(
@@ -40,7 +40,7 @@ export class CaptchaBoxComponent implements OnInit {
 
   renderReCAPTCHA() {
     this.rendered = true;
-    window['reCAPTCHACallback'] = this._submit.bind(this);
+    (window as any)['reCAPTCHACallback'] = this._submit.bind(this);
     grecaptcha.render(this.gReCaptcha.nativeElement, {
       'callback': 'reCAPTCHACallback'
     });

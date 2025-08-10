@@ -10,7 +10,7 @@ import {Component} from '@angular/core';
 export class LoadingBoxComponent {
   showLoadingBox: boolean;
   fadeInLoadingBox: boolean;
-  loadingText: string;
+  loadingText: string | null;
 
   constructor() {
     this.loadingText = null;
@@ -25,7 +25,7 @@ export class LoadingBoxComponent {
     }, 500);
   }
 
-  show(text: string = null) {
+  show(text: string) {
     this.loadingText = text;
     this.showLoadingBox = true;
     setTimeout(() => {

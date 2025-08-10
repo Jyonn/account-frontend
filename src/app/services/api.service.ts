@@ -18,7 +18,7 @@ export class ApiService {
     return this._defaultCatcher.bind(this);
   }
 
-  private static packForm(data: {key, token, file}) {
+  private static packForm(data: {key: string, token: string, file: any}) {
     const formData = new FormData();
     formData.append('key', data.key);
     formData.append('token', data.token);
@@ -37,17 +37,17 @@ export class ApiService {
       .get('/base/regions');
   }
 
-  public getPhoneCode(data: {mode, phone, response}) {
+  public getPhoneCode(data: {mode: any, phone: any, response: any}) {
     return this.requestService
       .post('/base/recaptcha', data);
   }
 
-  public getLoginTokenUsingPWD(data: {mode, phone, qt, response, pwd}) {
+  public getLoginTokenUsingPWD(data: {mode: any, phone: any, qt: any, response: any, pwd: any}) {
     return this.requestService
       .post('/base/recaptcha', data);
   }
 
-  public getLoginTokenUsingCode(data: {mode, code, pwd}) {
+  public getLoginTokenUsingCode(data: {mode: any, code: any, pwd: any}) {
     return this.requestService
       .post('/base/recaptcha', data);
   }
@@ -57,22 +57,22 @@ export class ApiService {
       .get('/user/');
   }
 
-  public getAppList(data: {relation, frequent?, count?, last_time?}) {
+  public getAppList(data: {relation: any, frequent?: any, count?: any, last_time?: any}) {
     return this.requestService
       .get('/app/', data);
   }
 
-  public getAppInfo(appId) {
+  public getAppInfo(appId: any) {
     return this.requestService
       .get(`/app/${appId}`);
   }
 
-  public getAppSecret(appId) {
+  public getAppSecret(appId: any) {
     return this.requestService
       .get(`/app/${appId}/secret`);
   }
 
-  public oauthApp(data: {app_id}) {
+  public oauthApp(data: {app_id: any}) {
     return this.requestService
       .post('/oauth/', data);
   }
@@ -87,28 +87,28 @@ export class ApiService {
       .get('/app/premise');
   }
 
-  public createNewApp(data: {name, info, desc, redirect_uri, test_redirect_uri, scopes, premises}) {
+  public createNewApp(data: {name: any, info: any, desc: any, redirect_uri: any, test_redirect_uri: any, scopes: any, premises: any}) {
     return this.requestService
       .post('/app/', data);
   }
 
-  public getLogoUploadToken(data: {filename, app_id}) {
+  public getLogoUploadToken(data: {filename: any, app_id: any}) {
     return this.requestService
       .get('/app/logo', data);
   }
 
-  public getAvatarUploadToken(data: {filename}) {
+  public getAvatarUploadToken(data: {filename: any}) {
     return this.requestService
       .get('/user/avatar', data);
   }
 
-  public uploadFile(data: {key, token, file}) {
+  public uploadFile(data: {key: any, token: any, file: any}) {
     const formData = ApiService.packForm(data);
     return this.requestService
       .post(ApiService.qn_host, formData);
   }
 
-  public uploadFileV2(data: {key, token, file}, callback: HttpCallback) {
+  public uploadFileV2(data: {key: any, token: any, file: any}, callback: HttpCallback) {
     const formData = ApiService.packForm(data);
     return this.requestService
       .postV2(ApiService.qn_host, formData, callback);
@@ -136,12 +136,12 @@ export class ApiService {
       });
   }
 
-  public updateScore(appUserId, data: {mark}) {
+  public updateScore(appUserId: any, data: {mark: any}) {
     return this.requestService
       .put(`/app/user/${appUserId}`, data);
   }
 
-  public getCardUploadToken(data: {filename, back}) {
+  public getCardUploadToken(data: {filename: any, back: any}) {
     return this.requestService
       .get('/user/idcard', data);
   }
@@ -151,12 +151,12 @@ export class ApiService {
       .get('/user/verify', {});
   }
 
-  public confirmVerify(data: {name?, birthday?, idcard?, male?, token?, auto?}) {
+  public confirmVerify(data: {name?: any, birthday?: any, idcard?: any, male?: any, token?: any, auto?: any}) {
     return this.requestService
       .post('/user/verify', data);
   }
 
-  public updateUserInfo(data: {nickname?, description?, qitian?, birthday?}) {
+  public updateUserInfo(data: {nickname?: any, description?: any, qitian?: any, birthday?: any}) {
     return this.requestService
       .put('/user/', data);
   }

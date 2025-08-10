@@ -104,7 +104,7 @@ export class AppComponent implements OnInit {
       .then(resp => {
         this.userService.user = new User(resp);
       }).catch(() => {
-        this.userService.user = new User({});
+      this.userService.user = new User({});
     });
   }
 }

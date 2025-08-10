@@ -15,11 +15,11 @@ import {OneWorker} from '../../services/one-worker.service';
   ]
 })
 export class ScoreBoxComponent {
-  @Input() app: App;
+  @Input() app!: App;
   @Output() cancel = new EventEmitter();
   @Output() submit = new EventEmitter<Array<ChooseItem>>();
 
-  showScoreBox: boolean;
+  showScoreBox: boolean | null = null;
 
   constructor(
     private api: ApiService,
@@ -27,7 +27,7 @@ export class ScoreBoxComponent {
     private oneWorker: OneWorker,
   ) {}
 
-  getArrayInstance(number) {
+  getArrayInstance(number: any) {
     return Array.from(Array(number).keys());
   }
 
@@ -44,7 +44,7 @@ export class ScoreBoxComponent {
     this.showScoreBox = false;
   }
 
-  getMyScoreClass(score) {
+  getMyScoreClass(score: any) {
     return this.app.relation.mark > score ? 'icon-star-s' : 'icon-star-l';
   }
 
@@ -52,12 +52,12 @@ export class ScoreBoxComponent {
     return this.app.relation.mark > 0 ? `${this.app.relation.mark}星` : '轻触右侧评分';
   }
 
-  updateScore(score) {
+  updateScore(score: any) {
     if (!this.app.relation.bind) {
       this.toastService.show(new Toast('请先体验应用后评分'));
       return;
     }
-    this.oneWorker.do('score-update', (callback) => {
+    this.oneWorker.do('score-update', (callback: any) => {
       this.api.updateScore(this.app.relation.user_app_id, {mark: score})
         .then(resp => {
           this.toastService.show(new Toast('您的评分已更新'));

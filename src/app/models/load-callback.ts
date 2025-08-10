@@ -16,7 +16,7 @@ export class LoadCallback {
     }
   }
 
-  calling(callback) {
+  calling(callback: any) {
     this.callbacks.add(callback);
   }
 }

@@ -31,34 +31,34 @@ export class ImageSplitComponent implements OnDestroy {
 
   private MAX_SCALE = 16;
 
-  @ViewChild('loadingBox') loadingBox: LoadingBoxComponent;
-  @ViewChild('avatarCanvas') avatarCanvasElement: ElementRef;
-  @ViewChild('centerBox') centerBoxElement: ElementRef;
-  @ViewChild('touchBoard') touchBoardElement: ElementRef;
-  @ViewChild('avatar') avatarElement: ElementRef;
+  @ViewChild('loadingBox') loadingBox!: LoadingBoxComponent;
+  @ViewChild('avatarCanvas') avatarCanvasElement!: ElementRef;
+  @ViewChild('centerBox') centerBoxElement!: ElementRef;
+  @ViewChild('touchBoard') touchBoardElement!: ElementRef;
+  @ViewChild('avatar') avatarElement!: ElementRef;
 
-  private canvas: HTMLCanvasElement;
-  private canvasContext: CanvasRenderingContext2D;
-  private avatar: HTMLDivElement;
-  private touch: HTMLDivElement;
+  private canvas!: HTMLCanvasElement;
+  private canvasContext!: CanvasRenderingContext2D;
+  private avatar!: HTMLDivElement;
+  private touch!: HTMLDivElement;
 
-  private image: HTMLImageElement;
+  private image!: HTMLImageElement;
   private imageLoaded: Boolean;
   private imageRect: Rect;
   private readonly centerRect: Rect;
-  private maxSize: Size;
+  private maxSize!: Size;
   private readonly topLeftOffset: Point;
 
   private touchStatus: number;
-  private originPoints: Array<Point>;
+  private originPoints!: Array<Point>;
 
-  public showComponent: boolean;
-  public fadeInComponent: boolean;
+  public showComponent!: boolean;
+  public fadeInComponent!: boolean;
 
-  imageFile: File;
+  imageFile!: File;
   @Output() split = new EventEmitter<File>();
 
-  _resizeSubscription: Subscription;
+  _resizeSubscription!: Subscription;
 
   hide() {
     this.fadeInComponent = false;
@@ -109,7 +109,7 @@ export class ImageSplitComponent implements OnDestroy {
     this.touch.addEventListener('mouseup', () => {
       this.touchStatus = this.TOUCH_END;
     });
-    this.touch.addEventListener('mousewheel', (e) => {
+    this.touch.addEventListener('mousewheel', (e: any) => {
       let scale = 1;
       if (e.wheelDelta) {
         scale = -e.wheelDelta / 120;
@@ -167,13 +167,13 @@ export class ImageSplitComponent implements OnDestroy {
 
   loadImage() {
     const imageFile = this.imageFile;
-    getImageOrientation(imageFile, (orientation) => {
+    getImageOrientation(imageFile, (orientation: any) => {
       fileToBase64(imageFile, orientation, (orientedImageFile: File) => {
         const reader = new FileReader();
         reader.readAsDataURL(orientedImageFile);
         reader.onload = (event) => {
           this.image = new Image();
-          this.image.src = event.target.result;
+          this.image.src = (event.target!.result as string);
           this.imageLoaded = false;
           this.image.onload = () => {
             this.imageLoaded = true;
@@ -200,7 +200,7 @@ export class ImageSplitComponent implements OnDestroy {
     );
     this.canvas.width = this.centerRect.width;
     this.canvas.height = this.centerRect.height;
-    this.canvasContext = this.canvas.getContext('2d');
+    this.canvasContext = this.canvas.getContext('2d')!;
 
     this.avatar.style.width = fitStyle(this.centerRect.width);
     this.avatar.style.height = fitStyle(this.centerRect.height + centerBoxDiv.offsetTop * 2);
@@ -237,7 +237,7 @@ export class ImageSplitComponent implements OnDestroy {
   }
 
   returnSplitImage() {
-    this.oneWorker.do('upload-avatar', (callback) => {
+    this.oneWorker.do('upload-avatar', (callback: any) => {
       const scale = this.imageRect.width / this.image.width;
       this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.canvasContext.drawImage(

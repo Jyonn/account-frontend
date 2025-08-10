@@ -6,10 +6,10 @@ import {ChooseItem} from '../models/choose-item';
 
 @Injectable()
 export class AppDepotService {
-  private readonly _appDepot: object;
+  private readonly _appDepot: any;
   public frequentAppList: Array<App>;
   public totalAppList: Array<App>;
-  public devAppList: Array<App>;
+  public devAppList!: Array<App>;
   public lastCreateTime: 0;
 
   public scopeList: Array<ChooseItem>;
@@ -34,7 +34,7 @@ export class AppDepotService {
     this.appTemplate = new App({});
   }
 
-  push(app, base = false) {
+  push(app: any, base = false) {
     if (app.app_id in this._appDepot) {
       this._appDepot[app.app_id].update(app, base);
     } else {
@@ -43,7 +43,7 @@ export class AppDepotService {
     return this._appDepot[app.app_id];
   }
 
-  get(appId) {
+  get(appId: any) {
     return this._appDepot[appId] || new App({});
   }
 

@@ -1,11 +1,11 @@
 class CallbackFunction {
   private readonly _function: any;
 
-  constructor(f) {
+  constructor(f: any) {
     this._function = f;
   }
 
-  static handler(...any) {}
+  static handler(...any: any) {}
 
   get isFunction() {
     return typeof this._function === 'function';
@@ -26,7 +26,7 @@ export class HttpCallback {
   responseCallback: CallbackFunction;
   failResponseCallback: CallbackFunction;
 
-  constructor(_: {uploadProgress?, downloadProgress?, responseCallback?, failResponseCallback?}) {
+  constructor(_: {uploadProgress?: any, downloadProgress?: any, responseCallback?: any, failResponseCallback?: any}) {
     this.uploadProgress = new CallbackFunction(_.uploadProgress);
     this.downloadProgress = new CallbackFunction(_.downloadProgress);
     this.responseCallback = new CallbackFunction(_.responseCallback);

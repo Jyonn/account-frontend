@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {NgModule, SecurityContext} from '@angular/core';
 
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -44,6 +44,7 @@ import {RegionService} from './services/region.service';
 import {AppCenterComponent} from './components/menu/app-center.component';
 import {HistoryService} from './services/history.service';
 
+
 @NgModule({
   declarations: [
     MenuComponent,
@@ -71,12 +72,13 @@ import {HistoryService} from './services/history.service';
     FormsModule,
     ClipboardModule,
     MarkdownModule.forRoot({
-      provide: MarkedOptions,
-      useFactory: markedOptionsFactory,
-      useValue: {
-        tables: true,
-      }
+      markedOptions: {
+        provide: MarkedOptions,
+        useFactory: markedOptionsFactory,
+      },
+      sanitize: SecurityContext.NONE,
     }),
+    MarkdownModule,
     // ProgressHttpModule,
   ],
   providers: [

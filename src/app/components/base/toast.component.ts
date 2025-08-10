@@ -13,8 +13,8 @@ export class ToastComponent {
   static TRANSITION_DURATION = 500;
 
   activeToast: Boolean;
-  toastText: string;
-  interval: number;
+  toastText!: string;
+  interval: ReturnType<typeof setInterval> | null;
 
   constructor(
     private toastService: ToastService,
@@ -28,7 +28,7 @@ export class ToastComponent {
     this.toastText = toast.text;
     this.activeToast = true;
     if (toast.time !== Toast.TIME_ALWAYS) {
-      clearInterval(this.interval);
+      clearInterval(this.interval!);
       this.interval = setInterval(
         this.clearToast.bind(this),
         toast.time + ToastComponent.TRANSITION_DURATION
@@ -41,7 +41,7 @@ export class ToastComponent {
   }
 
   clearToast() {
-    clearInterval(this.interval);
+    clearInterval(this.interval!);
     this.activeToast = false;
   }
 }

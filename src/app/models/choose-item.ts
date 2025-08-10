@@ -7,7 +7,7 @@ export class ChooseItem {
   desc: string;
   external: any;
 
-  static fromScope(scope) {
+  static fromScope(scope: any) {
     return new ChooseItem({
       key: scope.desc,
       value: '',
@@ -17,7 +17,7 @@ export class ChooseItem {
     });
   }
 
-  static fromPremise(premise) {
+  static fromPremise(premise: any) {
     return new ChooseItem({
       key: premise.desc,
       value: '',
@@ -27,7 +27,7 @@ export class ChooseItem {
     });
   }
 
-  constructor(_: {key, value, id, selected?, always?, desc?, descRight?, external?}) {
+  constructor(_: {key: any, value: any, id: any, selected?: any, always?: any, desc?: any, descRight?: any, external?: any}) {
     this.key = _.key;
     this.value = _.value;
     this.id = _.id || _.key;

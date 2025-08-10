@@ -14,7 +14,7 @@ export class ToastService {
     this.toastCenter.next(toast);
   }
 
-  listen(handler) {
+  listen(handler: any) {
     this.toastCenter.asObservable()
       .subscribe(handler);
   }

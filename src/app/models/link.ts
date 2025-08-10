@@ -2,7 +2,7 @@ export class Link {
   link: string;
 
   constructor(link?: string) {
-    this.link = link;
+    this.link = link!;
   }
 
   get url() {

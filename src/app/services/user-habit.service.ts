@@ -6,7 +6,7 @@ import {UserHabit} from '../models/user-habit';
 export class UserHabitService {
   habit: UserHabit;
   currentVersion: string;
-  userId: string;
+  userId!: string;
   loaded: boolean;
 
   get userHabitKey() {

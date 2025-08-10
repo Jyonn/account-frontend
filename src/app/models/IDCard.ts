@@ -8,7 +8,7 @@ export class IDCard {
   token: string;
   expireTime: number;
 
-  constructor(_: {name?, male?, idcard?, birthday?, valid_start?, valid_end?, token?, ctime?, expire?}) {
+  constructor(_: {name?: any, male?: any, idcard?: any, birthday?: any, valid_start?: any, valid_end?: any, token?: any, ctime?: any, expire?: any}) {
     this.real_name = _.name;
     this.male = _.male;
     this.idcard = _.idcard;

@@ -7,13 +7,13 @@ import {UserHabitService} from './user-habit.service';
 
 @Injectable()
 export class UserService {
-  public tokenKey: string;
-  private _user: User;
-  private _backUser: User;
-  private _token: string;
+  public tokenKey!: string;
+  private _user!: User;
+  private _backUser!: User;
+  private _token!: string;
 
-  public tokenLC: LoadCallback;
-  public userLC: LoadCallback;
+  public tokenLC!: LoadCallback;
+  public userLC!: LoadCallback;
 
   constructor(
     private local: LocalService,
@@ -31,13 +31,13 @@ export class UserService {
   }
 
   loadToken() {
-    this._token = this.local.load(this.tokenKey);
+    this._token = this.local.load(this.tokenKey) || '';
     RequestService.token = this._token;
     this.tokenLC.load();
   }
 
   saveToken() {
-    this.local.save(this.tokenKey, this._token);
+    this.local.save(this.tokenKey, this._token || '');
   }
 
   logout() {
@@ -55,7 +55,7 @@ export class UserService {
   }
 
   get token() {
-    return this._token;
+    return this._token || '';
   }
   set token(token: string) {
     this._token = token;

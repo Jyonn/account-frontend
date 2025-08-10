@@ -24,7 +24,7 @@ import {Subscription} from 'rxjs';
   ]
 })
 export class ManageComponent implements OnInit, OnDestroy {
-  @ViewChild('chooseBox') chooseBox: ChooseBoxComponent;
+  @ViewChild('chooseBox') chooseBox!: ChooseBoxComponent;
   chooseList: Array<ChooseItem>;
   chooseBoxTitle: string;
   _chooseBoxOnSubmit: any;
@@ -35,20 +35,20 @@ export class ManageComponent implements OnInit, OnDestroy {
   oauthPremise: Radio;
   oauthSSH: Radio;
 
-  @ViewChild('appImageSplit') appImageSplit: ImageSplitComponent;
+  @ViewChild('appImageSplit') appImageSplit!: ImageSplitComponent;
   appInfoRadioList: RadioList;
   appLogo: Radio;
-  logoUploader: HTMLInputElement;
+  logoUploader!: HTMLInputElement;
 
   // params
   app: App;
-  appId: string;
+  appId!: string;
 
   // ui
   magicScrollTop: number;
   showMagic: boolean;
 
-  _routerSubscription: Subscription;
+  _routerSubscription!: Subscription;
 
   constructor(
     public userService: UserService,
@@ -166,15 +166,15 @@ export class ManageComponent implements OnInit, OnDestroy {
     this._chooseBoxOnSubmit = this.choosePremiseOnSubmit.bind(this);
   }
 
-  chooseScopeOnSubmit(scopes) {
+  chooseScopeOnSubmit(scopes: any) {
     this.app.scopes = scopes;
   }
 
-  choosePremiseOnSubmit(premises) {
+  choosePremiseOnSubmit(premises: any) {
     this.app.premises = premises;
   }
 
-  chooseBoxOnSubmit($event) {
+  chooseBoxOnSubmit($event: any) {
     if (this._chooseBoxOnSubmit) {
       this._chooseBoxOnSubmit($event);
     }
@@ -199,7 +199,7 @@ export class ManageComponent implements OnInit, OnDestroy {
     return length ? `已选择${length}项要求…` : '选择要求…';
   }
 
-  paramValid(param, text) {
+  paramValid(param: any, text: any) {
     if (!param || param.length === 0) {
       this.toastService.show(new Toast(`${text}不能为空`));
       return false;
@@ -216,10 +216,11 @@ export class ManageComponent implements OnInit, OnDestroy {
   /**
    * 更新logo
    */
-  chooseLogoImage(files: FileList) {
+  chooseLogoImage($event: any) {
+    let files = $event.target.files
     if (files.length > 0) {
       if (files[0].size > ImageSplitService.MAX_IMAGE_SIZE) {
-        this.logoUploader.value = null;
+        this.logoUploader.value = '';
         this.toastService.show(new Toast(ImageSplitService.ERROR_TOO_LARGE_IMAGE_SIZE));
         return;
       } else {
@@ -254,7 +255,7 @@ export class ManageComponent implements OnInit, OnDestroy {
     this.toastService.show(new Toast('复制成功'));
   }
 
-  onScroll($event) {
+  onScroll($event: any) {
     this.showMagic = $event.target.scrollTop >= this.magicScrollTop;
   }
 

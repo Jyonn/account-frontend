@@ -4,40 +4,40 @@ import {ChooseItem} from './choose-item';
 
 
 export class App {
-  app_desc: string;
+  app_desc!: string;
   app_id: string;
-  app_name: string;
-  app_info: string;
-  logo: Link;
-  redirect_uri: string;
-  test_redirect_uri: string;
-  owner: User;
-  app_secret: string;
-  scopes: Array<ChooseItem>;
-  premises: Array<ChooseItem>;
-  mark: Array<number>;
-  user_num: number;
+  app_name!: string;
+  app_info!: string;
+  logo!: Link;
+  redirect_uri!: string;
+  test_redirect_uri!: string;
+  owner!: User;
+  app_secret!: string;
+  scopes!: Array<ChooseItem>;
+  premises!: Array<ChooseItem>;
+  mark!: Array<number>;
+  user_num!: number;
   create_time: number;
-  relation: {belong: boolean, bind: boolean, mark: number, rebind: boolean, user_app_id: string};
+  relation!: {belong: boolean, bind: boolean, mark: number, rebind: boolean, user_app_id: string};
 
-  markPeople: number;
-  markNum: string;
-  markPeopleText: string;
-  starClassList: Array<string>;
+  markPeople!: number;
+  markNum!: string;
+  markPeopleText!: string;
+  starClassList!: Array<string>;
 
-  logoImage: HTMLImageElement;
-  premiseSummaryText: string;
-  premiseWarn: boolean;
+  logoImage!: HTMLImageElement;
+  premiseSummaryText!: string;
+  premiseWarn!: boolean;
 
-  constructor(_: {user_num?, app_desc?, app_id?, app_name?, app_info?, logo?, test_redirect_uri?,
-    redirect_uri?, owner?, app_secret?, scopes?, premises?, relation?, mark?, create_time?}) {
+  constructor(_: {user_num?: any, app_desc?: any, app_id?: any, app_name?: any, app_info?: any, logo?: any, test_redirect_uri?: any,
+    redirect_uri?: any, owner?: any, app_secret?: any, scopes?: any, premises?: any, relation?: any, mark?: any, create_time?: any}) {
     this.app_id = _.app_id;
     this.create_time = _.create_time;
     this.update(_);
   }
 
-  update(_: {user_num?, app_desc?, app_name?, app_info?, logo?, redirect_uri?, test_redirect_uri?,
-    owner?, app_secret?, scopes?, premises?, relation?, mark?}, base = false) {
+  update(_: {user_num?: any, app_desc?: any, app_name?: any, app_info?: any, logo?: any, redirect_uri?: any, test_redirect_uri?: any,
+    owner?: any, app_secret?: any, scopes?: any, premises?: any, relation?: any, mark?: any}, base = false) {
     this.app_desc = _.app_desc;
     this.app_name = _.app_name;
     this.logo = new Link(_.logo);
@@ -125,7 +125,7 @@ export class App {
     return this.app_info || '暂无介绍';
   }
 
-  markPercentage(index) {
+  markPercentage(index: any) {
     return this.mark[index] / this.markPeople * 100 + '%';
   }
 

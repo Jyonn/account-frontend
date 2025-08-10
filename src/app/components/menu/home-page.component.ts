@@ -18,15 +18,15 @@ import {HistoryService} from '../../services/history.service';
   ]
 })
 export class HomePageComponent implements OnDestroy {
-  @ViewChild('appDisplay') appDisplay: DisplayComponent;
-  public app: App;
-  public appId: string;
-  public showDisplayPage: boolean;
+  @ViewChild('appDisplay') appDisplay!: DisplayComponent;
+  public app!: App;
+  public appId!: string;
+  public showDisplayPage!: boolean;
 
-  public oauth: boolean;
+  public oauth!: boolean;
 
   _routerSubscription: Subscription;
-  _querySubscription: Subscription;
+  _querySubscription!: Subscription;
 
   constructor(
     private footBtnService: MenuFootBtnService,
@@ -76,7 +76,7 @@ export class HomePageComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._querySubscription.unsubscribe();
-    this._routerSubscription.unsubscribe();
+    this._querySubscription?.unsubscribe();
+    this._routerSubscription?.unsubscribe();
   }
 }

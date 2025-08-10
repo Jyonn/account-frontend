@@ -8,7 +8,7 @@ export class PreloadImage {
     this.image = new Image();
   }
 
-  load(onload) {
+  load(onload: any) {
     this.image.src = this.src;
     this.image.onload = () => {
       this.loaded = true;

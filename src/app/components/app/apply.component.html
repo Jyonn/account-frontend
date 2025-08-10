@@ -57,7 +57,7 @@
       <div class="section-list">
         <div class="section-item profile" [ngClass]="appLogo.class">
           <div class="profile-attribute oxs middle-line">应用图标</div>
-          <input #logoUploader class="hide" type="file" accept="image/*" (change)="chooseLogoImage($event.target.files)"/>
+          <input #logoUploader class="hide" type="file" accept="image/*" (change)="chooseLogoImage($event)"/>
           <div class="profile-avatar img-fit profile-logo" [ngStyle]="{'background-image': app.logo.url}" (click)="logoUploader.click()"></div>
           <div class="right-icon icon-next animate ptr middle-line" (click)="appInfoRadioList.toggle(appLogo)"></div>
           <div class="active-element change-avatar-hint">点击更换图标</div>

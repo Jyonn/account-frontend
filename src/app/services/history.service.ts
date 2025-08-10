@@ -28,7 +28,7 @@ export class HistoryService {
     return this.link.length < 2;
   }
 
-  go(fail = null) {
+  go(fail: any = null) {
     if (!this.empty) {
       const last: any = this.link[this.link.length - 2];
       this.link.pop();

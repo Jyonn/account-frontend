@@ -18,20 +18,18 @@ export function markedOptionsFactory(): MarkedOptions {
   return {
     renderer: renderer,
     gfm: true,
-    tables: true,
     breaks: false,
     pedantic: false,
-    sanitize: false,
     smartLists: true,
     smartypants: false,
   };
 }
 
-export function template(strings, ...keys) {
-  return (function (...values) {
+export function template(strings: any, ...keys: any) {
+  return (function (...values: any) {
     const dict = values[values.length - 1] || {};
     const result = [strings[0]];
-    keys.forEach(function (key, i) {
+    keys.forEach(function (key: any, i: any) {
       const value = Number.isInteger(key) ? values[key] : dict[key];
       result.push(value, strings[i + 1]);
     });
@@ -45,7 +43,7 @@ export function fitStyle(length: any) {
 
 export function dataURLtoFile(dataURL: string, filename: string) {
   const arr = dataURL.split(',');
-  const mime = arr[0].match(/:(.*?);/)[1];
+  const mime = arr[0].match(/:(.*?);/)![1];
   const bstr = atob(arr[1]);
   let n = bstr.length;
   const u8arr = new Uint8Array(n);
@@ -55,10 +53,10 @@ export function dataURLtoFile(dataURL: string, filename: string) {
   return new File([u8arr], filename, {type: mime});
 }
 
-export function getImageOrientation(imageFile, callback) {
+export function getImageOrientation(imageFile: any, callback: any) {
   let reader: any;
   reader = new FileReader();
-  reader.onload = (event) => {
+  reader.onload = (event: any) => {
 
     const view = new DataView(event.target.result);
 
@@ -99,12 +97,12 @@ export function getImageOrientation(imageFile, callback) {
   reader.readAsArrayBuffer(imageFile.slice(0, 64 * 1024));
 }
 
-export function fileToBase64(file, orientation, callback) {
+export function fileToBase64(file: any, orientation: any, callback: any) {
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => {
     const base64 = reader.result;
-    resetImageOrientation(base64, orientation, (resetBase64Image) => {
+    resetImageOrientation(base64, orientation, (resetBase64Image: any) => {
       const orientedImageFile = dataURLtoFile(resetBase64Image, 'temp-image');
       callback(orientedImageFile);
     });
@@ -114,7 +112,7 @@ export function fileToBase64(file, orientation, callback) {
   };
 }
 
-export function resetImageOrientation(srcBase64, srcOrientation, callback) {
+export function resetImageOrientation(srcBase64: any, srcOrientation: any, callback: any) {
   const img = new Image();
 
   img.onload = () => {
@@ -134,18 +132,18 @@ export function resetImageOrientation(srcBase64, srcOrientation, callback) {
 
     // transform context before drawing image
     switch (srcOrientation) {
-      case 2: ctx.transform(-1, 0, 0, 1, width, 0); break;
-      case 3: ctx.transform(-1, 0, 0, -1, width, height); break;
-      case 4: ctx.transform(1, 0, 0, -1, 0, height); break;
-      case 5: ctx.transform(0, 1, 1, 0, 0, 0); break;
-      case 6: ctx.transform(0, 1, -1, 0, height, 0); break;
-      case 7: ctx.transform(0, -1, -1, 0, height, width); break;
-      case 8: ctx.transform(0, -1, 1, 0, 0, width); break;
+      case 2: ctx!.transform(-1, 0, 0, 1, width, 0); break;
+      case 3: ctx!.transform(-1, 0, 0, -1, width, height); break;
+      case 4: ctx!.transform(1, 0, 0, -1, 0, height); break;
+      case 5: ctx!.transform(0, 1, 1, 0, 0, 0); break;
+      case 6: ctx!.transform(0, 1, -1, 0, height, 0); break;
+      case 7: ctx!.transform(0, -1, -1, 0, height, width); break;
+      case 8: ctx!.transform(0, -1, 1, 0, 0, width); break;
       default: break;
     }
 
     // draw image
-    ctx.drawImage(img, 0, 0);
+    ctx!.drawImage(img, 0, 0);
 
     // export base64
     callback(canvas.toDataURL());

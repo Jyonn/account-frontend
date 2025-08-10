@@ -10,7 +10,7 @@ export class OneWorker {
     private toastService: ToastService,
   ) {}
 
-  do(identifier: string, worker, busyHandler = null) {
+  do(identifier: string, worker: any, busyHandler: any = null) {
     if (OneWorker.workers.has(identifier)) {
       if (typeof busyHandler === 'function') {
         busyHandler();

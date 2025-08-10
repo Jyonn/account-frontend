@@ -6,7 +6,7 @@ export class MenuFootBtnService {
   footBtnUserSetting: MenuFootBtn;
   footBtnList: Array<MenuFootBtn>;
 
-  footBtnActive: MenuFootBtn;
+  footBtnActive!: MenuFootBtn;
 
   constructor() {
     this.footBtnHomePage = new MenuFootBtn({

@@ -18,7 +18,7 @@
         </div>
         <div class="section-item profile" [ngClass]="userAvatarRadio.class">
           <div class="profile-attribute oxs middle-line">头像</div>
-          <input #avatarUploader class="hide" type="file" accept="image/*" (change)="chooseAvatarImage($event.target.files)"/>
+          <input #avatarUploader class="hide" type="file" accept="image/*" (change)="chooseAvatarImage($event)"/>
           <div class="profile-value oxs middle-line" *ngIf="!userService.user.avatar.link" (click)="avatarUploader.click()">点击上传头像</div>
           <div class="profile-avatar img-fit" [ngStyle]="{'background-image': userService.user.avatar.url}" (click)="avatarUploader.click()" *ngIf="userService.user.avatar.link"></div>
           <div class="right-icon icon-next animate ptr middle-line" (click)="userInfoRadioList.toggle(userAvatarRadio)" *ngIf="userService.user.avatar.link"></div>

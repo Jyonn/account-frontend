@@ -15,9 +15,9 @@ import {AppDepotService} from '../../services/app-depot.service';
   ]
 })
 export class OauthComponent implements OnInit {
-  @ViewChild('appDisplay') appDisplay: DisplayComponent;
+  @ViewChild('appDisplay') appDisplay!: DisplayComponent;
 
-  appId: string;
+  appId!: string;
   app: App;
 
   constructor(

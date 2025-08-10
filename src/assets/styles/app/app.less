@@ -26,7 +26,7 @@ div.main-container {
     div.icon-next {
       display: inline-block;
       transform: rotate(180deg);
-      font-size: @fix-nav-height / 2;
+      font-size: (@fix-nav-height / 2);
       line-height: @fix-nav-height;
       width: @fix-nav-height;
       vertical-align: middle;
@@ -52,11 +52,11 @@ div.main-container {
       background-color: white;
       line-height: @bind-btn-height;
       vertical-align: middle;
-      border-radius: @bind-btn-height / 2;
+      border-radius: (@bind-btn-height / 2);
       padding: 0 15px;
       color: @shine-yellow;
       font-size: 14px;
-      margin-top: @fix-nav-height / 2 - @bind-btn-height / 2;
+      margin-top: (@fix-nav-height / 2) - (@bind-btn-height / 2);
       &:hover {
         background-color: @gray;
       }
@@ -80,7 +80,7 @@ div.main-container {
         color: @dark-gray;
       }
       @app-logo-size: 50px;
-      @middle-margin: 38px - @app-logo-size / 2;
+      @middle-margin: 38px - (@app-logo-size / 2);
       div.app-logo {
         margin-top: @middle-margin;
         border-radius: 5px;

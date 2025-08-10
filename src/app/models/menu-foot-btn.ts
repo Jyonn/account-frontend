@@ -3,7 +3,7 @@ export class MenuFootBtn {
   text: string;
   hide: boolean;
 
-  constructor(d: {icon, text, hide}) {
+  constructor(d: {icon: any, text: any, hide: any}) {
     this.icon = d.icon;
     this.text = d.text;
     this.hide = d.hide;

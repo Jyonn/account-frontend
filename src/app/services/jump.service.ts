@@ -10,7 +10,7 @@ export class JumpService {
     private toastService: ToastService,
   ) {}
 
-  handler(commands, params = null) {
+  handler(commands: any, params: any = null) {
     this.router.navigate(commands, {queryParams: params})
       .then()
       .catch((e) => {
@@ -19,7 +19,7 @@ export class JumpService {
       });
   }
 
-  outsideHandler(link) {
+  outsideHandler(link: any) {
     window.location.href = link;
   }
 
@@ -35,15 +35,15 @@ export class JumpService {
     this.handler(['/menu', 'user-setting']);
   }
 
-  oauthApp(appId) {
+  oauthApp(appId: any) {
     this.handler(['/oauth'], {app_id: appId});
   }
 
-  homePageOauthApp(appId) {
+  homePageOauthApp(appId: any) {
     this.handler(['/menu', 'home-page', 'oauth'], {app_id: appId});
   }
 
-  appCenterOauthApp(appId) {
+  appCenterOauthApp(appId: any) {
     this.handler(['/menu', 'app-center', 'oauth'], {app_id: appId});
   }
 
@@ -55,7 +55,7 @@ export class JumpService {
     this.handler(['/app', 'apply']);
   }
 
-  appManage(appId) {
+  appManage(appId: any) {
     this.handler(['/app', 'manage'], {app_id: appId});
   }
 

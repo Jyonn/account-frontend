@@ -8,7 +8,7 @@ export class Toast {
   type: number;
   time: number;
 
-  constructor(text, type = null, time = null) {
+  constructor(text: any, type = null, time = null) {
     this.text = text || '';
     this.type = type || Toast.TYPE_NORMAL;
     this.time = time || Toast.TIME_AUTO;

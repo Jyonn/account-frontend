@@ -12,7 +12,7 @@ export class RequestService {
     private http: HttpClient,
     private toastService: ToastService,
   ) {}
-  public static token: string = null;
+  public static token: string | null = null;
   public static api_host = 'https://api.qt.6-79.cn';
   // public static api_host = 'http://localhost:8001';
 
@@ -23,7 +23,7 @@ export class RequestService {
     return Promise.reject(error);
   }
 
-  static getOption(url, data = {}) {
+  static getOption(url: any, data = {}) {
     const httpHeaders = new HttpHeaders({'Token': this.isAPIServer(url) ? (RequestService.token || '') : ''});
     return {
       headers: httpHeaders,
@@ -32,7 +32,7 @@ export class RequestService {
     };
   }
 
-  static getOptionV2(url, data: any = null) {
+  static getOptionV2(url: any, data: any = null) {
     const httpHeaders = new HttpHeaders({'Token': this.isAPIServer(url) ? (RequestService.token || '') : ''});
     return {
       headers: httpHeaders,
@@ -58,8 +58,8 @@ export class RequestService {
   private handleHTTP(o: Observable<Object>) {
     return o.toPromise()
       .then((resp: any) => {
-          if (resp.code !== 0) {
-            this.toastService.show(new Toast(resp.msg));
+          if (resp.identifier !== 'OK') {
+            this.toastService.show(new Toast(resp.user_message));
             return Promise.reject(resp);
           } else {
             RequestService.async_worker -= 1;
@@ -78,8 +78,8 @@ export class RequestService {
         callback.downloadProgress.run(event);
       } else if (event.type === HttpEventType.Response) {
         const resp = event.body;
-        if (resp.code !== 0) {
-          this.toastService.show(new Toast(resp.msg));
+        if (resp.identifier !== 'OK') {
+          this.toastService.show(new Toast(resp.user_message));
           callback.failResponseCallback.run(resp);
         } else {
           callback.responseCallback.run(resp.body);
@@ -88,15 +88,15 @@ export class RequestService {
     });
   }
 
-  get(url: string, data: object = null) {
+  get(url: string, data: any = null) {
     RequestService.async_worker += 1;
     return this.handleHTTP(this.http.get(RequestService.fillUrl(url), RequestService.getOption(url, data)));
   }
-  post(url: string, data) {
+  post(url: string, data: any) {
     RequestService.async_worker += 1;
     return this.handleHTTP(this.http.post(RequestService.fillUrl(url), data, RequestService.getOption(url)));
   }
-  put(url: string, data) {
+  put(url: string, data: any) {
     RequestService.async_worker += 1;
     return this.handleHTTP(this.http.put(RequestService.fillUrl(url), data, RequestService.getOption(url)));
   }
@@ -105,16 +105,16 @@ export class RequestService {
     return this.handleHTTP(this.http.delete(RequestService.fillUrl(url), RequestService.getOption(url)));
   }
 
-  getV2(url: string, data: object = null, callback: HttpCallback) {
+  getV2(url: string, data: any = null, callback: HttpCallback) {
     this.handleHTTPV2(this.http.get(RequestService.fillUrl(url), RequestService.getOptionV2(url, data)), callback);
   }
 
-  postV2(url: string, data: object = null, callback: HttpCallback) {
+  postV2(url: string, data: any = null, callback: HttpCallback) {
     const request = new HttpRequest('POST', RequestService.fillUrl(url), data, RequestService.getOptionV2(url, data));
     this.handleHTTPV2(this.http.request(request), callback);
   }
 
-  putV2(url: string, data: object = null, callback: HttpCallback) {
+  putV2(url: string, data: any = null, callback: HttpCallback) {
     this.handleHTTPV2(this.http.put(RequestService.fillUrl(url), data, RequestService.getOptionV2(url)), callback);
   }
 

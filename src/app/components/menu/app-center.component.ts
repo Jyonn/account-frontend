@@ -18,19 +18,19 @@ import {HistoryService} from '../../services/history.service';
   ]
 })
 export class AppCenterComponent implements OnDestroy {
-  @ViewChild('appDisplay') appDisplay: DisplayComponent;
-  public app: App;
-  public appId: string;
-  public showDisplayPage: boolean;
+  @ViewChild('appDisplay') appDisplay!: DisplayComponent;
+  public app!: App;
+  public appId!: string;
+  public showDisplayPage!: boolean;
 
-  public oauth: boolean;
+  public oauth!: boolean;
 
   _routerSubscription: Subscription;
-  _querySubscription: Subscription;
+  _querySubscription!: Subscription;
 
   constructor(
     public appDepot: AppDepotService,
-    private jump: JumpService,
+    public jump: JumpService,
     public footBtnService: MenuFootBtnService,
     public userService: UserService,
     private activatedRoute: ActivatedRoute,

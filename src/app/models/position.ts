@@ -1,6 +1,6 @@
 export class Point {
-  public x: number;
-  public y: number;
+  public x!: number;
+  public y!: number;
 
   constructor(x?: number, y?: number) {
     this.setParam(x, y);
@@ -34,8 +34,8 @@ export class Point {
 }
 
 export class Size {
-  public w: number;
-  public h: number;
+  public w!: number;
+  public h!: number;
 
   constructor(w?: number, h?: number) {
     this.setParam(w, h);
@@ -46,7 +46,7 @@ export class Size {
     this.h = h || 0;
   }
 
-  scale(scale: number, maxSize: Size = null, minSize: Size = null): Boolean {
+  scale(scale: number, maxSize: Size | null = null, minSize: Size | null = null): Boolean {
     if (this.w * scale < 1) {
       return false;
     }
@@ -148,8 +148,8 @@ export class Rect {
     this.setParamWithCenter(center, size);
   }
 
-  scale(center: Point, scale: number, maxSize: Size = null, minSize: Size = null) {
-    const isScaled = this._size.scale(scale, maxSize, minSize);
+  scale(center: Point, scale: number, maxSize: Size | null = null, minSize: Size | null = null) {
+    const isScaled = this._size.scale(scale, maxSize!, minSize!);
     if (isScaled) {
       this._topLeftPoint.setParam(
         center.x - (center.x - this.left) * scale,

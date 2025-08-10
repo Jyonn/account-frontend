@@ -6,7 +6,8 @@ export class RespError {
     'PASSWORD_CHANGED',
   ];
 
-  code: number;
-  identifier: string;
-  msg: string;
+  code!: number;
+  identifier!: string;
+  message!: string;
+  user_message!: string;
 }

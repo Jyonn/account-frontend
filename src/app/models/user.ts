@@ -9,24 +9,24 @@ export class User {
   static VERIFY_CHINA = 0;
   static VERIFY_ABROAD = 1;
 
-  nickname: string;
-  description: string;
-  birthday: string;
-  avatar: Link;
-  qitian: string;
-  allow_qitian_modify: boolean;
-  user_str_id: string;
-  verify_status: number;
-  verify_type: number;
-  is_dev: boolean;
+  nickname!: string;
+  description!: string;
+  birthday!: string;
+  avatar!: Link;
+  qitian!: string;
+  allow_qitian_modify!: boolean;
+  user_str_id!: string;
+  verify_status!: number;
+  verify_type!: number;
+  is_dev!: boolean;
 
-  constructor(_: {nickname?, description?, avatar?, qitian?, allow_qitian_modify?, user_str_id?, birthday?, verify_status?,
-    verify_type?, is_dev?}) {
+  constructor(_: {nickname?: any, description?: any, avatar?: any, qitian?: any, allow_qitian_modify?: any, user_str_id?: any, birthday?: any, verify_status?: any,
+    verify_type?: any, is_dev?: any}) {
     this.user_str_id = _.user_str_id;
     this.update(_);
   }
 
-  update(_: {nickname?, description?, avatar?, qitian?, allow_qitian_modify?, birthday?, verify_status?, verify_type?, is_dev?}) {
+  update(_: {nickname?: any, description?: any, avatar?: any, qitian?: any, allow_qitian_modify?: any, birthday?: any, verify_status?: any, verify_type?: any, is_dev?: any}) {
     this.nickname = _.nickname;
     this.description = _.description;
     if (_.avatar instanceof Link) {

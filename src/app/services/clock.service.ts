@@ -4,14 +4,14 @@ import {Injectable} from '@angular/core';
 export class ClockService {
   public static cTimestamp: number; // current timestamp
   public static cDate: Date;
-  private static time_interval = null;
+  private static time_interval: any = null;
   private static refreshTime() {
     ClockService.cDate = new Date();
     // utc_ts_offset = current_time.getTimezoneOffset() * 60;
     ClockService.cTimestamp = ClockService.cDate.getTime() / 1000;
   }
   public static startClock() {
-    clearInterval(ClockService.time_interval);
+    clearInterval(ClockService.time_interval!);
     ClockService.time_interval = setInterval(ClockService.refreshTime, 1000);
     ClockService.refreshTime();
   }
@@ -28,7 +28,7 @@ export class ClockService {
     ].join('-');
   }
 
-  public getConstellation(birthday) {
+  public getConstellation(birthday: any) {
     if (!birthday) {
       return '暂未选择生日';
     }
@@ -40,7 +40,7 @@ export class ClockService {
     return constellations.substr(month * 2 - (date < magic[month - 1] ? 2 : 0), 2) + '座';
   }
 
-  public getReadableBirthday(birthday) {
+  public getReadableBirthday(birthday: any) {
     if (!birthday) {
       return '暂未选择生日';
     } else {
